@@ -236,7 +236,84 @@ var addFive = addGenerator(5);
 // We can see here that the result of the addFive function is 9,
 // When passed an argument of 4
 console.log( addFive(4) == 9);
+```
 
+### Example of Using anonymous funcion to hide Variable from the Global Scope
+```
+// Create a new anonymous function, to use as a wrapper
+(function(){
+    // The variable that would normally be global
+    var msg = 'Thanks for visiting!';
+    // Binding a new function to global object
+    window.onload = function(){
+    // Which uses the 'hidden' variable
+    console.log(msg);
+    };
+
+// Close off the anonymous function and execute it
+    
+})();
+```
+
+### Example of Using Anonymous functions to Induce needed to create multiple closure-using functions
+
+```
+// An element with an ID of main
+var obj = document.getElementById('main');
+
+// An array of items to bind to
+var items = ['click', 'keypress'];
+
+// Iterate through each of the items
+for(var i = 0; i < items.length; i++){
+        // Use a self-executed anonymous function to induce scope
+        (function(){
+                //Remember the value within this scope
+                // Each 'item' is unique.
+                // Not relying on variables created in the parent context.
+                var item = items[i];
+                // bind a function to the element
+                obj['on' + item] = function(){
+                         //item refers to a parent variable that has been successfully
+                         // scoped within the context of this for loop
+                         console.log('Thanks for you ' + item);
+                };
+        }
+        )();
+}
+```
+
+### Two example of Function Overloading in Javascript
+
+```
+// A simple function for sending a message
+function sendMessage(msg, obj){
+         // If both a message an object are provided
+         if(argument.length === 2){
+                // Send the message to the object
+                // (Assumes that obj has a log property!)
+                obj.log(msg);
+         }else{
+                // Otherwise, assume that only a message was provided
+                // So just display the default error message
+                console.log(msg);
+         }
+}
+
+//Both of these function calls work
+sendMessage('Hello, World!');
+sendMessage('How are you?', console);
+```
+
+### Converting Arguments to an Array
+```
+function aFunction(x, y, z){
+         var argsArray = Array.prototype.slice.call(argument, 0);
+         console.log('The last argument is:' + argsArray.pop());
+}
+
+// Will output 'The last argument is 3'
+aFunction(1,2,3);
 
 
 
