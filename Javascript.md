@@ -417,4 +417,50 @@ console.log(bob.toString());
 
 ```
 
+### Person Is the Parent of Teacher
+```
+var Person = {
+    firstName:'John',
+    lastName:'Conoly',
+    birthDate:new Date('1964-09-05'),
+    gender:'male',
+    getAge:function(){
+    var today = new Date();
+    var diff = today.getTime() - this.birthDate.getTime();
+    var year = 1000*60*60*24*365.25;
+    return Math.floor(diff/year);
+    },
+    toSting:function(){
+    return this.firstName+' '+this.lastName+' is a '+this.getAge()+' year-old '+this.gender;
+    },
+    extend:function(){
+    var tmp = Object.create(this);
+    fot(var key on config){
+            if(config.hasOwnProperty(key)){
+                tmp[key]=config[key];
+                }
+     return tmp;}}
+};
+
+var Teacher = Person.extend({
+    job:'teacher',
+    subject:'English Literature',
+    yearsExp:5,
+    toString:function(){
+        return this.fitstName+' '+this.lastName+' is a  '+this.getAge()+' year-old '+this.subject+' teacher.';}
+        }
+);
+
+var patty = Teacher.extend({
+    fitstName:'Patricia',
+    lastName:'Hannon',
+    subject:'chemistry',
+    yearsExp:20,
+    gender:'female'
+});
+
+console.log(patty.toString());
+```
+
+
 ### 
