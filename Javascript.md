@@ -577,6 +577,59 @@ var Person = {
 	firstName:'John',
 	lastName:'Connolly',
 	birthDate:new Date('1964-09-05'),
-	gender:'male'
-}
+	gender:'male',
+        getAge:function(){
+                var today = new Date();
+                var diff = today.getTime()-this.birthdate.getTime();
+                var year = 1000*60*60*24*365.25;
+                return Math.floor(diff/year)
+        },
+        toString:function(){
+        return this.firstName+' '+this.lastName+' is a '+this.getAge()+' year-old '+this.gender;}
+        extend:function(config){
+        var tmp = Object.create(this);
+        for(var key in config){
+                if(config.hasOwnProperty(key))
+                        tmp[key] = config[key];
+                        }
+
+               // When was this object created?
+               var creationTime = new Date();
+
+               //An accessor, at the moment, It's private
+               var getCreationTime = function(){
+                   return creationtime;
+
+                   };
+
+              tmp.getCreationtime = getCreationtime;
+              return tmp;
+
+       }
+                
+};
+
+var Teacher = Person.extend({
+    job:'teacher,
+    subject:'English Literature',
+    yearsexp:5,
+    toString:function(){
+        var originalStr = Person.toString.call(this);
+        return originalStr+' '+this.subject+' teacher.';
+        }
+});
+
+var patty = Teacher.extend({
+    firstName:'Patricia',
+    lastName:'Hannon',
+    subject:'chemistry',
+    yearsExp:20,
+    gender:'female'
+});
+
+console.log(patty.toString());
+consolr.log('The teacher object was created at %s', patty.getCreationtime());
+```
+
+### 
 
