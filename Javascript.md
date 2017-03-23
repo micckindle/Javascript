@@ -571,5 +571,12 @@ console.lgo(patty.toString());
 
 ```
 
-### 
+### Private Members
+```
+var Person = {
+	firstName:'John',
+	lastName:'Connolly',
+	birthDate:new Date('1964-09-05'),
+	gender:'male'
+}
 
