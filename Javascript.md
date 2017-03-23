@@ -375,6 +375,7 @@ if(typeof Object.create !== 'function'){
 }
 ```
 
+
 ### The Person Object with a Factory Method
 
 ```
@@ -463,4 +464,112 @@ console.log(patty.toString());
 ```
 
 
+###  The isPrototypeOf() function
+```
+var Person = {
+	firstName:'Jhon',
+	lastName:'connolly',
+	birthDate:new Date('1964-09-05'),
+	gender:'male',
+	getAge:function(){
+		var today = new Date();
+		var diff = today.getTime() - this.birthDate.getTime();
+		var year = 1000*60*60*24*365.25;
+		return Math.floor(diff/year);
+	},
+	toString:function(){
+		return this.firstName + ' ' + this.lastName + ' is a '+this.getAge() + ' year-old '+ this.gender;
+	},
+	extend:function(config){
+		var tmp = Object.create(this);
+		for(var key in config){
+			if(config.hasOwnProperty(key)){
+				tmp[key] = config[key];
+			}
+		}
+		return tmp;
+	}
+};
+
+var Teacher = Person.extend({
+	job:'teacher',
+	subject:'English Literature',
+	yearsExp:5,
+	toString:function(){
+		return this.firstName + ' '+this.lastName+' is a '+this.getAge()+' year-old '+this.gender+' '+this.subject+' teacher.';
+
+	}
+});
+
+var bob = Person.extend({
+	firstName:'Bob',
+	lastName:'Sabatelli',
+	birthDate:new Date('1969-06-07')
+});
+
+var patty = Teacher.extend({
+	fitstName:'Patricia',
+	lastName:'Hannon',
+	subject:'chemistry',
+	yearsExp:20,
+	gender:'female'
+});
+
+console.log('Is bob an instance of Person?'+Person.isPrototypeOf(bob)); //true
+console.log('Is bob an instance of Teacher?'+Teacher.isPrototypeOf(bob));//false
+console.log('Is patty an instance of Teacher?'+Teacher.isPrototypeOf(patty))//true
+console.log('Is patty an instance of Person?'+Person.isPrototypeOf(patty));//true
+
+```
+
+### Reproducing the Effect of the super Function
+```
+var Person = {
+	firstName:'Jhon',
+	lastName:'Connolly',
+	birthDate:new Date('1964-09-05'),
+	gender:'male',
+	getAge:function(){
+		var today = new Date();
+		var diff = today.getTime() - this.birtDate.getTime();
+		var year = 1000*60*60*24*365.25;
+		return Math.floor(diff/year);
+	},
+	toString:function(){
+		return this.firstName+' '+this.lastName+' is a '+this.getAge()+'year-old '+this.gender;
+	},
+	extend:function(){
+		var tmp = Object.create(this);
+		fot(var key in config){
+			if(config.hasOwnProperty(key)){
+				tmp[key] = congfig[key];
+			}
+		}
+		return tmp;
+	}
+};
+
+var Teach = Person.extend({
+	job:'teacher',
+	subject:'English Literature',
+	yearExp:5,
+	toString:function(){
+		var originalStr = Person.toString.call(this);
+		return originalStr + ' '+this.subject+' teacher.';
+	}
+});
+
+var patty = Teacher.extend({
+	firstName:'Patricia',
+	lastName:'Hannon',
+	subject:'chemistry',
+	yearExp:20,
+	gender:'female'
+});
+
+console.lgo(patty.toString());
+
+```
+
 ### 
+
