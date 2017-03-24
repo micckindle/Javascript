@@ -631,5 +631,145 @@ console.log(patty.toString());
 consolr.log('The teacher object was created at %s', patty.getCreationtime());
 ```
 
-### 
+### Namespaces
+```
+// Namespaces example
+var FOO = {};
 
+// Add a variable
+FOO.x = 10;
+
+// Add a funciotn
+FOO.addEmUp = function(x, y){
+	return x+y;
+};
+```
+
+### Creating a Module
+```
+function getModule(){
+	// Namespaces example
+	var FOO = {};
+
+	// Add a variable
+	FOO.x = 10;
+
+	// Add a function
+	FOO.addEmUp = function(x, y){
+		return x+y;
+	};
+
+	return FOO;
+}
+
+var myNamespace = getModule();
+```
+
+### Modules with Private Date
+```
+function getModule(){
+	// Namespaces example
+	var FOO = {};
+
+	// Add a variable
+	FOO.x = 10;
+
+	// Add a function
+	FOO.addEmUp = function(x, y){
+		return x+y;
+	};
+
+	// A private variable
+	var events = [];
+
+	FOO.addEvent = function(eventName, target, fn){
+		events.pus({eventName: eventName, target:target, fn:fn});
+	}
+
+	FOO.listEvents = function(eventName){
+		return events.filter(function(evtObj){
+			return evtObj.eventName === eventName
+		});
+	};
+
+	return FOO;
+}
+
+var myNamespace = getModule();
+
+```
+
+### An Immediately Invoked Function Expression
+```
+// A regular function
+function foo(){
+	condole.log('Called foo!');
+}
+
+// Function assignment
+var bar = function(){
+	console.log('Called bar!');
+};
+
+// Function expression
+(function(){
+	consolr.log('This function was invoked immediately!')
+})();
+
+// Alternate syntax
+(function(){
+	console.log('This function was ALSO invoked immediately!')
+}());
+
+```
+
+### An IIFE Module Generator
+```
+var myModule - (function(){
+	// A private variable
+	var events = [];
+
+	return{
+		x:10,
+		addEmUp:function(x, y){
+			return x+y;
+		},
+		addEvent:function(eventName, target, fn){
+			events.push({eventName:eventName, target:target, fn:fn});
+		},
+		listEvents:function(eventName){
+			return events.filter(function(evtObj){
+				return evtObj.eventName === eventName
+			});
+		}
+	}
+})();
+
+```
+
+### Passing Arguments to an IIFE
+```
+// Here, the $ refers to jQuery only for the entire
+// scope of the module
+
+var myModule = (function($){
+	// A private variable
+	var events = [];
+
+	return{
+		x:10,
+		addEmUp:function(x,y){return x+y;}
+		addEvent:function(eventName, target,fn){
+			event.pus({eventName:eventName, target:target, fn:fn});
+			$(target).on(eventName, fn);
+		},
+		listEvents:function(eventName){
+			return events.filter(function(evtObj){
+				return evtObj.eventName === eventName
+			});
+		}
+	};
+})(jQuery); // Assumes that we had include jQuery earlier
+```
+
+### 
